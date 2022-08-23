@@ -76,6 +76,7 @@ int EP02AskCameraFiles(FlirOneDeviceModel *device) {
     device->file_buf_size = msg_transferred;
   }
   return ret;
+  return ret;
 }
 
 int EP02AskStreameId(FlirOneDeviceModel *device) {
@@ -275,7 +276,7 @@ void FlirOneInterface::Stop() {
   runnable_ = false;
   std::this_thread::sleep_for(std::chrono::seconds(1));
   if (device_.dev_handle != NULL) {
-    LOG(INFO) << "Force to close the device";
+    std::cout << "Force to close the device";
     libusb_release_interface(device_.dev_handle, 0);
     libusb_reset_device(device_.dev_handle);
     libusb_close(device_.dev_handle);
@@ -297,7 +298,7 @@ common::Status FlirOneInterface::PollGetResult(FlirOneImageResult *result) {
     std::lock_guard<std::mutex> guard(swap_cache_mtx_);
     has_new_frame_ = false;
     *result = result_cache_[1 - pingpong_];
-    LOG(INFO) << "sequence: " << result_cache_[1 - pingpong_].sequence
+    std::cout << "sequence: " << result_cache_[1 - pingpong_].sequence
         << ", ts: " << result_cache_[1 - pingpong_].timestamp_ns;
     return common::Status::OK;
   }
@@ -398,10 +399,10 @@ void FlirOneInterface::RequestNewFrame(FlirOneInterface *interface) {
     if (strcmp(const_cast<const char *>(interface->device_.ep85_error),
                libusb_error_name(ret)) != 0) {
       strcpy(interface->device_.ep85_error, libusb_error_name(ret));
-      LOG(ERROR) << "RequestNewFrame error: " << interface->device_.ep85_error;
+     std::cout) << "RequestNewFrame error: " << interface->device_.ep85_error;
       std::this_thread::sleep_for(std::chrono::seconds(1));
     }
-    LOG(ERROR) << "RequestNewFrame error: " << interface->device_.ep85_error;
+    std::cout << "RequestNewFrame error: " << interface->device_.ep85_error;
     return;
   }
   // Make sure the head is always magic bytes.

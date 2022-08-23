@@ -10,8 +10,6 @@
 #include <unistd.h>
 #include <vector>
 
-#include <glog/logging.h>
-
 namespace device {
 namespace flir {
 class FlirOneCalibProfile {

@@ -17,7 +17,6 @@
 #include <mutex>
 #include <string>
 #include <thread>
-#include <glog/logging.h>
 
 #include "include/libusb-1.0/libusb.h"
 

@@ -7,11 +7,6 @@ namespace device {
 FlirOneImageResult::~FlirOneImageResult() {
 }
 
-void FlirOneImageResult::SetEncryptionProfile(
-    const common::encryption::EncryptionProfile& profile) {
-  encrypt_utils.SetEncryptionProfile(profile);
-}
-
 nlohmann::json FlirOneImageResult::ToSlimJson() const {
   nlohmann::json msg;
   msg["machine_id"] = machine_id;

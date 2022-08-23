@@ -10,11 +10,8 @@
 #include <unistd.h>
 #include <vector>
 
-#include <glog/logging.h>
-
 #include "nlohmann/json.hpp"
 #include "common/base64.h"
-#include "common/encryption_utils.h"
 #include "device/flirone_calibration_utils.h"
 
 namespace device {
@@ -64,8 +61,6 @@ class FlirOneImageResult {
   FlirOneImageResult() {}
   ~FlirOneImageResult();
 
-  void SetEncryptionProfile(
-      const common::encryption::EncryptionProfile& profile);
   nlohmann::json ToSlimJson() const;
   nlohmann::json ToJson() const;
   std::vector<std::uint8_t> ToBson() const;
@@ -77,7 +72,6 @@ class FlirOneImageResult {
   FlirOneImageResult& operator = (const FlirOneImageResult &result);
 
  private:
-   ::common::encryption::EncryptionUtils encrypt_utils;
 };
 }  // namespace device
 #endif  // DEVICE_FLIRONE_DATATYPES_H_
